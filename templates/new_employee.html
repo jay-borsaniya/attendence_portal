@@ -1,0 +1,40 @@
+{% extends 'admin_base.html' %}
+
+{% block title %} Register New Employee {% endblock %}
+
+{% block content %}
+<h3> Login As : {{username}} </h3>
+<h2 class="text-center mt-4"> Register New Employee </h2>
+
+<form class="m-5 border p-5" method="POST" action="{% url 'new_employee' %}">
+  {% csrf_token %}
+        <div class="mb-3">
+            <label class="form-label">Employee Name</label>
+            <input type="text" class="form-control" name="name">
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Employee Designation</label>
+            <input type="text" class="form-control" name="designation">
+        </div>
+        <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Employee Email address</label>
+            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="email">
+        </div>
+        <div class="mb-3">
+            <label for="exampleInputPassword1" class="form-label">Password</label>
+            <input type="password" class="form-control" id="exampleInputPassword1" name="password">
+        </div>
+        <div class="mb-3 form-check">
+            <label class="form-check-label" for="exampleCheck1">Is Admin</label>
+            <input type="checkbox" class="form-check-input" id="exampleCheck1" name="is_admin">
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+
+        {%for message in messages %}
+            <div class="alert alert-{{ message.tag }} alert-dismissible fade show" role="alert">
+            <strong>Messages:</strong> {{ message }}
+            </div>
+        {% endfor %}
+      
+</form>
+{% endblock %}

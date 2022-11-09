@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+
+{% block title %}
+  Home-Page
+{% endblock %}
+
+{% block content %}
+
+  {%for message in messages %}
+  <div class="alert alert-{{ message.tag }} alert-dismissible fade show" role="alert">
+  <strong>Messages:</strong> {{ message }}
+  </div>
+  {% endfor %}
+
+  <div class="p-2 d-flex justify-content-between">
+    <div>
+      <h3> Login As : {{username}} </h3>
+      <h3> Leave Allocated : {{leaves}} </h3>
+    </div>
+
+    {% if punched_in_out_today %}
+      <p>You have already punched attendence today</p>
+    {% else %}
+
+      <div>
+          {% if punched_in_today %}
+            <form action="{% url 'punch_out' %}" method="POST" class="d-inline">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-dark mx-2">Punch Out</button>
+            </form>
+          {% else %}
+            <form action="{% url 'punch_in' %}" method="POST" class="d-inline">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-dark mx-2">Puch In</button>
+            </form>
+          {% endif %}
+      </div>
+    {% endif %}
+  </div>
+  <h2 class="text-center mt-4"> Attendence </h2>
+  <table class="table mx-auto w-75">
+      <thead>
+      <tr class="text-center">
+          <th class="col-2">#</th>
+          <th class="col-2">Date</th>
+          <th class="col-2">In Time</th>
+          <th class="col-2">Out Time</th>
+          <th class="col-2">Working Hour</th>
+      </tr>
+      </thead>
+      <tbody>
+      {% for row in attendence %}
+      <tr class="text-center">
+          <th scope="row">{{forloop.counter}}</th>
+          <td>{{row.date}}</td>
+          <td>{{row.in_time}}</td>
+
+          {% if row.out_time %}
+              <td>{{row.out_time}}</td>
+              <td>{{row.working_hour}}</td>
+          {% else %}
+              <td>-</td>
+              <td>-</td>
+          {% endif %}
+
+      </tr>
+      {% endfor %}
+      </tbody>
+  </table>
+{% endblock %}

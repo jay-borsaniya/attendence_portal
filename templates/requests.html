@@ -1,0 +1,28 @@
+{% extends 'admin_base.html' %}
+
+{% block title %} Requests {% endblock %}
+
+{% block content %}
+    <h3> Login As : {{username}} </h3>
+    {% for leave in leaves %}
+        <div class="card mt-5">
+            <div class="card-header">
+                <h5 class="card-title">Employee Name - {{leave.user}}</h5>
+            </div>
+            <div class="card-body">
+                <p>Leave Type - {{leave.leave_type}}</p>
+                <p class="card-text">Reason - {{leave.leave_reason}}</p>
+                <p class="card-text">Leave From Date - {{leave.leave_from_date}} </p>
+                <p class="card-text">Leave To Date - {{leave.leave_to_date}}</p>
+                <p class="card-text">Total Applied Leaves - {{leave.applied_leaves}}</p>
+                <p class="card-text">Status - {{leave.status}}</p>
+
+                {% if leave.status == "pending" %}
+                    <a href="{% url 'approve_leave' leave.id %}" class="btn btn-primary">Approve</a>
+                    <a href="{% url 'reject_leave' leave.id %}" class="btn btn-primary">Reject</a>
+                {% endif %}
+                
+            </div>
+        </div>
+    {% endfor %}
+{% endblock %}
