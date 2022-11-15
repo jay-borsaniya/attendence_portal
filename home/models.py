@@ -16,7 +16,7 @@ class Leaves(models.Model):
     status = models.CharField(max_length=10, choices=choices)
 
     def __str__(self):
-        return self.user
+        return self.user.username
 
 
 class Attendence(models.Model):

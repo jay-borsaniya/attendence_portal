@@ -32,6 +32,7 @@ def index(request):
                 punched_in_out_today = False
         else:
             punched_in_today = False
+            punched_in_out_today = False
     else:
         punched_in_today = False
         punched_in_out_today = False
@@ -125,6 +126,7 @@ def apply_leave(request):
 
 @login_required(login_url='user_login')
 def applied_leaves(request):
+
     user = request.user
     leaves = Leaves.objects.filter(user=user).order_by('-id')
 

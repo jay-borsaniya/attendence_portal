@@ -18,11 +18,11 @@
                 <label class="form-control card-header">{{leave.status}}</label>
             </div>
             <div class="card-body">
-                <h5 class="card-title">{{leave.leave_reason}}</h5>
+                <h5 class="card-title">Reason - {{leave.leave_reason}}</h5>
                 <br>
                 <h5>From - {{leave.leave_from_date}}</h5>
                 <h5>To - {{leave.leave_to_date}}</h5>
-                <h5> Total Leaves - {{leave.applied_leaves}} </h5>
+                <h5>Total Leaves - {{leave.applied_leaves}} </h5>
 
                 {% if leave.status == 'cancelled' %}
                     <p> This leave has been cancelled <p>

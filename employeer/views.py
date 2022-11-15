@@ -28,7 +28,12 @@ def dashboard(request):
 @login_required(login_url='user_login')
 def requests(request):
     leaves = Leaves.objects.all().order_by('-id')
-    return render(request, 'requests.html', {'username':request.user, 'leaves':leaves})
+    if not leaves:
+        messages.error(request, "You don't have any leave requests")
+        return render(request, 'requests.html', {'username':request.user})
+    else:
+        return render(request, 'requests.html', {'username':request.user, 'leaves':leaves})
+
 
 
 @login_required(login_url='user_login')

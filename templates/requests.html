@@ -4,6 +4,13 @@
 
 {% block content %}
     <h3> Login As : {{username}} </h3>
+    
+    {%for message in messages %}
+        <div class="alert alert-{{ message.tag }} alert-dismissible fade show" role="alert">
+        <strong>Messages:</strong> {{ message }}
+        </div>
+    {% endfor %}
+
     {% for leave in leaves %}
         <div class="card mt-5">
             <div class="card-header">
