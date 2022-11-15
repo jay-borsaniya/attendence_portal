@@ -28,4 +28,4 @@ class Attendence(models.Model):
     punch_in = models.BooleanField(default=False)
 
     def __str__(self):
-        return self.user
+        return self.user.username

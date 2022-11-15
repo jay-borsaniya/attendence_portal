@@ -48,15 +48,9 @@ def user_login(request):
         user = authenticate(username=name, password=pass1)
         
         if user is not None:
-                login(request, user)
-                messages.success(request, "You are now loged in")
-                emp = Account.objects.get(user=user)
-                context = {
-                'username' : emp.user,
-                'leaves' : emp.leaves,
-                'is_admin': emp.is_admin
-                }
-                return render(request, 'index.html', context)
+            login(request, user)
+            messages.success(request, "You are now loged in")
+            return redirect('index')
         else:
             messages.error(request, "Something went wrong please try again")
             return render(request, 'login.html')
@@ -201,7 +195,7 @@ def punch_in(request):
 
 @login_required(login_url='user_login')
 def punch_out(request):
-    
+
     if request.method == 'POST':
         out_time = datetime.now().strftime("%H:%M:%S")
         attendence = Attendence.objects.get(user=request.user, punch_in = True)
